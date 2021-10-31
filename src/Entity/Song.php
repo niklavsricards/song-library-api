@@ -32,6 +32,13 @@ class Song
      */
     private $length;
 
+    public function __construct(string $title, string $artist, float $length)
+    {
+        $this->title = $title;
+        $this->artist = $artist;
+        $this->length = $length;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,5 +78,15 @@ class Song
         $this->length = $length;
 
         return $this;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'artist' => $this->getArtist(),
+            'length' => $this->getLength()
+        ];
     }
 }
