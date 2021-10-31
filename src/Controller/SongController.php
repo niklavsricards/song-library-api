@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\SongRepository;
+use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class SongController extends AbstractController
     }
 
     /**
-     * @Route("/api/songs/add", name="add_song", methods={"POST"})
+     * @Route("/songs/add", name="add_song", methods={"POST"})
      */
     public function add(Request $request): JsonResponse
     {
@@ -37,5 +38,27 @@ class SongController extends AbstractController
         $this->songRepository->addSong($title, $artist, $length);
 
         return new JsonResponse(['status' => 'Customer created!'], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @Route("/songs", name="get_all_customer", methods={"GET"})
+     */
+    public function getAll(): JsonResponse
+    {
+        $songs = $this->songRepository->findAll();
+
+        $data = [];
+
+        foreach ($songs as $song)
+        {
+            $data[] = [
+                "id" => $song->getId(),
+                "title" => $song->getTitle(),
+                "artist" => $song->getArtist(),
+                "length" => $song->getLength()
+            ];
+        }
+
+        return new JsonResponse($data, Response::HTTP_OK);
     }
 }
