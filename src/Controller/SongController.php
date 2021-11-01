@@ -18,10 +18,14 @@ class SongController extends AbstractController
     public function __construct(SongRepository $songRepository)
     {
         $this->songRepository = $songRepository;
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+        header("Allow: GET, POST, OPTIONS, PUT, DELETE");
     }
 
     /**
-     * @Route("/songs/add", name="add_song", methods={"POST"})
+     * @Route("/api/songs/add", name="add_song", methods={"POST"})
      */
     public function add(Request $request): JsonResponse
     {
@@ -41,7 +45,7 @@ class SongController extends AbstractController
     }
 
     /**
-     * @Route("/songs", name="get_all_customer", methods={"GET"})
+     * @Route("/api/songs", name="get_all_songs", methods={"GET"})
      */
     public function getAll(): JsonResponse
     {

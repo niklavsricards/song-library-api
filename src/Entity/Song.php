@@ -79,14 +79,4 @@ class Song
 
         return $this;
     }
-
-    public function toArray(): array
-    {
-        return [
-            'id' => $this->getId(),
-            'title' => $this->getTitle(),
-            'artist' => $this->getArtist(),
-            'length' => $this->getLength()
-        ];
-    }
 }
